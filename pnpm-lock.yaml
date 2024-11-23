@@ -27,24 +27,15 @@ importers:
   packages/build:
     devDependencies:
       tk-configs:
-        specifier: ^0.0.2
+        specifier: ^0.0.4
         version: link:../configs
 
   packages/configs: {}
 
-  packages/testa:
-    devDependencies:
-      tk-build:
-        specifier: ^0.0.2
-        version: link:../build
-      tk-configs:
-        specifier: ^0.0.2
-        version: link:../configs
-
   packages/toolkit:
     devDependencies:
       tk-configs:
-        specifier: ^0.0.2
+        specifier: ^0.0.4
         version: link:../configs
 
 packages:
