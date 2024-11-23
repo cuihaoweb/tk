@@ -1,5 +1,5 @@
 import * as esbuild from 'esbuild';
-import { exec, execSync } from 'child_process';
+import { execSync } from 'child_process';
 
 const ctx = await esbuild.context({
     entryPoints: ['src/index.ts'],
@@ -8,7 +8,7 @@ const ctx = await esbuild.context({
     platform: 'node',
     target: 'node16',
     format: 'esm',
-    external: ['esbuild'],
+    packages: "external",
     banner: {
         'js': '#!/usr/bin/env node'
     },
@@ -23,7 +23,7 @@ const ctx = await esbuild.context({
                 });
             }
         }
-    ]
+    ],
 });
 
 const watcher = await ctx.watch();

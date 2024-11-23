@@ -4,8 +4,15 @@ import path from 'path';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 import { exec } from 'child_process';
+import { globSync } from 'glob';
+import copy from 'esbuild-copy-static-files';
 
 export type TargetType = string | 'node12' | 'node14' | 'node16' | 'node18' | 'node20';
+
+export interface CopyOptions {
+    from: string;
+    to: string;
+}
 
 export interface BuilderOptions {
     context?: string;
@@ -26,7 +33,8 @@ export interface BuilderOptions {
     bundle: boolean;
     watch?: boolean | {
         onRebuild: (result: esbuild.BuildResult<esbuild.BuildOptions>) => any;
-    }
+    },
+    copyOptions?: CopyOptions[];
 }
 
 export class Builder {
@@ -53,10 +61,10 @@ export class Builder {
     }
 
     normalizeOptions() {
-        const {options} = this;
+        const { options } = this;
         // load tsconfig.json and add alias
         if (options.package === 'external') {
-            const tsconfig =  require(path.join(options.context || '', 'tsconfig.json'));
+            const tsconfig = require(path.join(options.context || '', 'tsconfig.json'));
             const paths = tsconfig?.compilerOptions?.paths || {};
             for (const key in paths) {
                 options.alias![key] = paths[key][0];
@@ -76,9 +84,23 @@ export class Builder {
         }
     }
 
+    get copyList() {
+        const { options } = this;
+        if (!Array.isArray(options.copyOptions)) return [];
+
+        const copyList: Record<string, string>[] = [];
+        for (const item of options.copyOptions) {
+            const pathList = globSync(item.from);
+            const dest = (h) => item.to.endsWith('/') ? `${item.to}${path.basename(h)}` : item.to;
+            copyList.push(...pathList.map(h => ({ src: h, dest: dest(h) })));
+        }
+        console.log(`🚀 ~ file: index.ts:96 ~ Builder ~ getcopyList ~ copyList:`, copyList);
+        return copyList.map(option => copy(option));
+    }
+
     async build() {
         const that = this;
-        const {options} = this;
+        const { options } = this;
         const ctx = await esbuild.context({
             entryPoints: this.options.entry,
             outfile: this.options.splitting ? '' : `${this.options.output.dir}/${this.options.output.filename}`,
@@ -110,8 +132,9 @@ export class Builder {
                                 });
                             }
                         })
-                    }
-                }
+                    },
+                },
+                ...this.copyList
             ]
         });
 

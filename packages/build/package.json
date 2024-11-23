@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "glob": "^11.0.0",
     "tk-configs": "^0.0.4"
   },
   "nodemonConfig": {
@@ -25,5 +26,8 @@
     ],
     "delay": 500
   },
-  "gitHead": "79560f8b79d99ae5dd6e864367da5857931a06f2"
+  "gitHead": "79560f8b79d99ae5dd6e864367da5857931a06f2",
+  "dependencies": {
+    "esbuild-copy-static-files": "^0.1.0"
+  }
 }

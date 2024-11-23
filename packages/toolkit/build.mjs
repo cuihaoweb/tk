@@ -1,4 +1,4 @@
-import {Builder} from 'tk-build';
+import { Builder } from 'tk-build';
 
 const builder = new Builder({
     context: process.cwd(),
@@ -17,7 +17,10 @@ const builder = new Builder({
         onRebuild(options) {
             console.log(`🚀 ~ file: build.mjs:14 ~ onRebuild ~ options:`, options);
         }
-    }
+    },
+    copyOptions: [
+        { from: '*.json', to: 'dist/' },
+    ]
 });
 
 await builder.build();

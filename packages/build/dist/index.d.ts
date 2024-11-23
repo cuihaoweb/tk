@@ -1,5 +1,9 @@
 import * as esbuild from 'esbuild';
 export type TargetType = string | 'node12' | 'node14' | 'node16' | 'node18' | 'node20';
+export interface CopyOptions {
+    from: string;
+    to: string;
+}
 export interface BuilderOptions {
     context?: string;
     entry: string[] | Record<string, string>;
@@ -20,10 +24,12 @@ export interface BuilderOptions {
     watch?: boolean | {
         onRebuild: (result: esbuild.BuildResult<esbuild.BuildOptions>) => any;
     };
+    copyOptions?: CopyOptions[];
 }
 export declare class Builder {
     options: BuilderOptions;
     constructor(options: BuilderOptions);
     normalizeOptions(): void;
+    get copyList(): any[];
     build(): Promise<void>;
 }

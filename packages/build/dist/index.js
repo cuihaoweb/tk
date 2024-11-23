@@ -5,6 +5,8 @@ import * as esbuild from "esbuild";
 import path from "path";
 import { createRequire } from "module";
 import { exec } from "child_process";
+import { globSync } from "glob";
+import copy from "esbuild-copy-static-files";
 var require2 = createRequire(import.meta.url);
 var Builder = class {
   options;
@@ -44,6 +46,18 @@ var Builder = class {
       this.options.platform = "node";
     }
   }
+  get copyList() {
+    const { options } = this;
+    if (!Array.isArray(options.copyOptions)) return [];
+    const copyList = [];
+    for (const item of options.copyOptions) {
+      const pathList = globSync(item.from);
+      const dest = (h) => item.to.endsWith("/") ? `${item.to}${path.basename(h)}` : item.to;
+      copyList.push(...pathList.map((h) => ({ src: h, dest: dest(h) })));
+    }
+    console.log(`\u{1F680} ~ file: index.ts:96 ~ Builder ~ getcopyList ~ copyList:`, copyList);
+    return copyList.map((option) => copy(option));
+  }
   async build() {
     const that = this;
     const { options } = this;
@@ -80,7 +94,8 @@ var Builder = class {
               }
             });
           }
-        }
+        },
+        ...this.copyList
       ]
     });
     if (this.options.watch) {
