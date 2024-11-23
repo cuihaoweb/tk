@@ -1,0 +1,26 @@
+{
+  "name": "tk-build",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "tk-build": "dist/index.js"
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tk-configs": "workspace:^"
+  },
+  "nodemonConfig": {
+    "ignore": ["dist"],
+    "delay": 500
+  }
+}

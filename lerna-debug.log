@@ -1,0 +1,5 @@
+0 silly argv { _: [ 'list' ], lernaVersion: '7.1.5', '$0': 'lerna' }
+1 notice cli v7.1.5
+2 verbose packageConfigs Package manager "pnpm" detected. Resolving packages using `pnpm-workspace.yaml`.
+3 verbose rootPath /Users/cuihao04/Desktop/pro/tk
+4 error

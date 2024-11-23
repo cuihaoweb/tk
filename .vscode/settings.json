@@ -1,0 +1,38 @@
+{
+    /**
+    * 其他
+    * -------------------------------------------------------------------------- */
+    "workbench.tree.enableStickyScroll": true,
+    "npm.packageManager": "pnpm",
+
+    /**
+    * 智能提示
+    * -------------------------------------------------------------------------- */
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+
+    /**
+    * eslint自动修复格式化
+    * -------------------------------------------------------------------------- */
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.fixAll.eslint": "explicit",
+        "source.fixAll.stylelint": "explicit"
+    },
+    // eslint工作目录
+    "eslint.workingDirectories": [
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".eslintignore"
+    ],
+
+    /**
+    * Files path
+    * -------------------------------------------------------------------------- */
+    "files.associations": {
+        "*.json": "jsonc"
+    }
+}

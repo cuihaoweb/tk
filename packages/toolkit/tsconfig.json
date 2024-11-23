@@ -1,0 +1,3 @@
+{
+    "extends": "tk-configs/tsconfig/tsconfig.json"
+}
