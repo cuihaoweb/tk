@@ -1,6 +1,9 @@
 {
-  "name": "root",
+  "name": "tk",
   "private": false,
+  "workspaces": [
+    "packages/*"
+  ],
   "publishConfig": {
     "registry": "https://registry.npmmirror.com/"
   },
