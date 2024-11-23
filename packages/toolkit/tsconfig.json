@@ -1,6 +1,14 @@
 {
     "$schema": "https://json.schemastore.org/tsconfig",
     "extends": "tk-configs/tsconfig/tsconfig.json",
+    "compilerOptions": {
+        "emitDeclarationOnly": true,
+        "baseUrl": ".",
+        "outDir": "dist",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    },
     "include": [
         "src"
     ]

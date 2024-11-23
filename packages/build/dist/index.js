@@ -10,6 +10,10 @@ var Builder = class {
   options;
   constructor(options) {
     this.options = options;
+    Object.assign(this.options, {
+      ...options,
+      bundle: options.bundle ?? true
+    });
     this.options.context = options.context || process.cwd() || "";
     this.options.target = options.target || "node18";
     this.options.format = options.format || "cjs";
@@ -24,10 +28,13 @@ var Builder = class {
   }
   normalizeOptions() {
     var _a;
-    const tsconfig = require2(path.join(this.options.context || "", "tsconfig.json"));
-    const paths = ((_a = tsconfig == null ? void 0 : tsconfig.compilerOptions) == null ? void 0 : _a.paths) || {};
-    for (const key in paths) {
-      this.options.alias[key] = paths[key][0];
+    const { options } = this;
+    if (options.package === "external") {
+      const tsconfig = require2(path.join(options.context || "", "tsconfig.json"));
+      const paths = ((_a = tsconfig == null ? void 0 : tsconfig.compilerOptions) == null ? void 0 : _a.paths) || {};
+      for (const key in paths) {
+        options.alias[key] = paths[key][0];
+      }
     }
     for (const key in this.options.entry) {
       this.options.entry[key] = path.join(this.options.context || "", this.options.entry[key]);
@@ -39,26 +46,29 @@ var Builder = class {
   }
   async build() {
     const that = this;
+    const { options } = this;
     const ctx = await esbuild.context({
       entryPoints: this.options.entry,
       outfile: this.options.splitting ? "" : `${this.options.output.dir}/${this.options.output.filename}`,
       outdir: this.options.splitting ? this.options.output.dir : "",
       target: this.options.target,
       platform: this.options.platform,
-      bundle: this.options.package === "bundle",
-      external: this.options.package === "external" ? ["*"] : this.options.external,
+      bundle: options.bundle,
+      packages: this.options.package,
+      external: this.options.external,
       alias: this.options.alias,
       logLevel: "info",
+      format: this.options.format,
       splitting: this.options.splitting,
       minify: this.options.minify,
       plugins: [
         {
           name: "esbuild-node-externals",
           setup(build) {
-            build.onEnd((options) => {
+            build.onEnd((options2) => {
               var _a, _b;
               if (typeof that.options.watch === "object") {
-                (_b = (_a = that.options.watch).onRebuild) == null ? void 0 : _b.call(_a, options);
+                (_b = (_a = that.options.watch).onRebuild) == null ? void 0 : _b.call(_a, options2);
               }
               if (that.options.tsc) {
                 exec("npx tsc", (err, stdout) => {

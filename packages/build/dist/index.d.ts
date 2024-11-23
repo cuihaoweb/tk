@@ -16,6 +16,7 @@ export interface BuilderOptions {
     alias?: esbuild.BuildOptions['alias'];
     tsc?: boolean;
     minify?: boolean;
+    bundle: boolean;
     watch?: boolean | {
         onRebuild: (result: esbuild.BuildResult<esbuild.BuildOptions>) => any;
     };

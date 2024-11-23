@@ -14,7 +14,9 @@
   "license": "ISC",
   "devDependencies": {
     "tk-build": "workspace:^",
-    "tk-configs": "workspace:^"
+    "tk-configs": "workspace:^",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "gitHead": "79560f8b79d99ae5dd6e864367da5857931a06f2"
 }

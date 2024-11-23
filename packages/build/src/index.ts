@@ -23,16 +23,21 @@ export interface BuilderOptions {
     alias?: esbuild.BuildOptions['alias'];
     tsc?: boolean;
     minify?: boolean;
+    bundle: boolean;
     watch?: boolean | {
         onRebuild: (result: esbuild.BuildResult<esbuild.BuildOptions>) => any;
     }
 }
 
 export class Builder {
-    options: BuilderOptions
+    options: BuilderOptions;
 
     constructor(options: BuilderOptions) {
         this.options = options;
+        Object.assign(this.options, {
+            ...options,
+            bundle: options.bundle ?? true,
+        } as BuilderOptions);
         this.options.context = options.context || process.cwd() || '';
         this.options.target = options.target || 'node18';
         this.options.format = options.format || 'cjs';
@@ -43,15 +48,19 @@ export class Builder {
         this.options.splitting = options.splitting ?? false;
         this.options.tsc = options.tsc || false;
         this.options.minify = options.minify || false;
+
         this.normalizeOptions();
     }
 
     normalizeOptions() {
+        const {options} = this;
         // load tsconfig.json and add alias
-        const tsconfig =  require(path.join(this.options.context || '', 'tsconfig.json'));
-        const paths = tsconfig?.compilerOptions?.paths as Record<string, string[]> || {};
-        for (const key in paths) {
-            this.options.alias![key] = paths[key][0];
+        if (options.package === 'external') {
+            const tsconfig =  require(path.join(options.context || '', 'tsconfig.json'));
+            const paths = tsconfig?.compilerOptions?.paths || {};
+            for (const key in paths) {
+                options.alias![key] = paths[key][0];
+            }
         }
 
         // resolve entry path
@@ -69,16 +78,19 @@ export class Builder {
 
     async build() {
         const that = this;
+        const {options} = this;
         const ctx = await esbuild.context({
             entryPoints: this.options.entry,
             outfile: this.options.splitting ? '' : `${this.options.output.dir}/${this.options.output.filename}`,
             outdir: this.options.splitting ? this.options.output.dir : '',
             target: this.options.target,
             platform: this.options.platform,
-            bundle: this.options.package === 'bundle',
-            external: this.options.package === 'external' ? ['*'] : this.options.external,
+            bundle: options.bundle,
+            packages: this.options.package,
+            external: this.options.external,
             alias: this.options.alias,
             logLevel: 'info',
+            format: this.options.format,
             splitting: this.options.splitting,
             minify: this.options.minify,
             plugins: [

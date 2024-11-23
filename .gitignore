@@ -1,7 +1,9 @@
-node_modules/
+**/node_modules
 
-.DS_Store
-*.log
-logs/
+**/.DS_Store
+**/*.log
+**/logs/
 
-.npmrc
+**/.npmrc
+
+**/*.tsbuildinfo
