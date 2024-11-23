@@ -5,7 +5,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "publish": "pnpm publish --access public -registry https://registry.npmjs.org/ -r"
+    "publish": "pnpm publish -registry https://registry.npmjs.org/ -r"
   },
   "devDependencies": {
     "@types/node": "^22.9.1",
