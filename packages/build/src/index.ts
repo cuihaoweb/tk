@@ -8,7 +8,7 @@ import { exec } from 'child_process';
 export type TargetType = string | 'node12' | 'node14' | 'node16' | 'node18' | 'node20';
 
 export interface BuilderOptions {
-    context: string;
+    context?: string;
     entry: string[] | Record<string, string>;
     output: {
         dir: string;
@@ -33,6 +33,7 @@ export class Builder {
 
     constructor(options: BuilderOptions) {
         this.options = options;
+        this.options.context = options.context || process.cwd() || '';
         this.options.target = options.target || 'node18';
         this.options.format = options.format || 'cjs';
         this.options.package = options.package || 'bundle';
@@ -47,19 +48,19 @@ export class Builder {
 
     normalizeOptions() {
         // load tsconfig.json and add alias
-        const tsconfig =  require(path.join(this.options.context, 'tsconfig.json'));
-        const paths = tsconfig.compilerOptions.paths as Record<string, string[]>;
+        const tsconfig =  require(path.join(this.options.context || '', 'tsconfig.json'));
+        const paths = tsconfig?.compilerOptions?.paths as Record<string, string[]> || {};
         for (const key in paths) {
             this.options.alias![key] = paths[key][0];
         }
 
         // resolve entry path
         for (const key in this.options.entry) {
-            this.options.entry[key] = path.join(this.options.context, this.options.entry[key]);
+            this.options.entry[key] = path.join(this.options.context || '', this.options.entry[key]);
         }
 
         // resolve output path
-        this.options.output.dir = path.join(this.options.context, this.options.output.dir);
+        this.options.output.dir = path.join(this.options.context || '', this.options.output.dir);
 
         if (this.options.format === 'cjs') {
             this.options.platform = 'node';

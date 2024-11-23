@@ -34,8 +34,11 @@ importers:
 
   packages/toolkit:
     devDependencies:
+      tk-build:
+        specifier: workspace:^
+        version: link:../build
       tk-configs:
-        specifier: ^0.0.4
+        specifier: workspace:^
         version: link:../configs
 
 packages:

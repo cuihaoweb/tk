@@ -1,3 +1,7 @@
 {
-    "extends": "tk-configs/tsconfig/tsconfig.json"
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "extends": "tk-configs/tsconfig/tsconfig.json",
+    "include": [
+        "src"
+    ]
 }

@@ -10,6 +10,7 @@ var Builder = class {
   options;
   constructor(options) {
     this.options = options;
+    this.options.context = options.context || process.cwd() || "";
     this.options.target = options.target || "node18";
     this.options.format = options.format || "cjs";
     this.options.package = options.package || "bundle";
@@ -22,15 +23,16 @@ var Builder = class {
     this.normalizeOptions();
   }
   normalizeOptions() {
-    const tsconfig = require2(path.join(this.options.context, "tsconfig.json"));
-    const paths = tsconfig.compilerOptions.paths;
+    var _a;
+    const tsconfig = require2(path.join(this.options.context || "", "tsconfig.json"));
+    const paths = ((_a = tsconfig == null ? void 0 : tsconfig.compilerOptions) == null ? void 0 : _a.paths) || {};
     for (const key in paths) {
       this.options.alias[key] = paths[key][0];
     }
     for (const key in this.options.entry) {
-      this.options.entry[key] = path.join(this.options.context, this.options.entry[key]);
+      this.options.entry[key] = path.join(this.options.context || "", this.options.entry[key]);
     }
-    this.options.output.dir = path.join(this.options.context, this.options.output.dir);
+    this.options.output.dir = path.join(this.options.context || "", this.options.output.dir);
     if (this.options.format === "cjs") {
       this.options.platform = "node";
     }

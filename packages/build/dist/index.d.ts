@@ -1,7 +1,7 @@
 import * as esbuild from 'esbuild';
 export type TargetType = string | 'node12' | 'node14' | 'node16' | 'node18' | 'node20';
 export interface BuilderOptions {
-    context: string;
+    context?: string;
     entry: string[] | Record<string, string>;
     output: {
         dir: string;
