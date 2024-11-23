@@ -1,6 +1,6 @@
 {
   "name": "tk-build",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "dist/index.js",
   "type": "module",
@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tk-configs": "^0.0.2"
+    "tk-configs": "^0.0.3"
   },
   "nodemonConfig": {
     "ignore": [

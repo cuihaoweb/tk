@@ -1,5 +1,12 @@
-0 silly argv { _: [ 'list' ], lernaVersion: '7.1.5', '$0': 'lerna' }
-1 notice cli v7.1.5
-2 verbose packageConfigs Package manager "pnpm" detected. Resolving packages using `pnpm-workspace.yaml`.
-3 verbose rootPath /Users/cuihao04/Desktop/pro/tk
-4 error
+17 error Error: Command failed with exit code 1: git remote update
+17 error git@github.com: Permission denied (publickey).
+17 error fatal: Could not read from remote repository.
+17 error
+17 error Please make sure you have the correct access rights
+17 error and the repository exists.
+17 error     at makeError (/Users/cuihao04/Desktop/pro/tk/node_modules/.pnpm/execa@5.0.0/node_modules/execa/lib/error.js:59:11)
+17 error     at module.exports.sync (/Users/cuihao04/Desktop/pro/tk/node_modules/.pnpm/execa@5.0.0/node_modules/execa/index.js:186:17)
+17 error     at Object.execSync (/Users/cuihao04/Desktop/pro/tk/node_modules/.pnpm/@lerna+child-process@7.1.5/node_modules/@lerna/child-process/index.js:39:16)
+17 error     at updateRemote (/Users/cuihao04/Desktop/pro/tk/node_modules/.pnpm/lerna@7.1.5/node_modules/lerna/dist/index.js:7613:18)
+17 error     at isBehindUpstream (/Users/cuihao04/Desktop/pro/tk/node_modules/.pnpm/lerna@7.1.5/node_modules/lerna/dist/index.js:7603:3)
+17 error     at VersionCommand.initialize (/Users/cuihao04/Desktop/pro/tk/node_modules/.pnpm/lerna@7.1.5/node_modules/lerna/dist/index.js:7913:57)
