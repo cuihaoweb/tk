@@ -1,6 +1,9 @@
 {
   "name": "root",
   "private": false,
+  "publishConfig": {
+    "registry": "https://registry.npmmirror.com/"
+  },
   "devDependencies": {
     "@types/node": "^22.9.1",
     "esbuild": "^0.24.0",

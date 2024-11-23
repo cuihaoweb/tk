@@ -1,6 +1,6 @@
 {
   "name": "testa",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "type": "module",
   "main": "index.js",
@@ -11,7 +11,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tk-build": "workspace:^",
-    "tk-configs": "workspace:^"
-  }
+    "tk-build": "^0.0.1",
+    "tk-configs": "^0.0.1"
+  },
+  "gitHead": "3c9e54e8ea0d32556f999c807cea3b239d28dc2b"
 }

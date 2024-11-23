@@ -1,6 +1,6 @@
 {
   "name": "tk-configs",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "files": [
@@ -11,5 +11,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "gitHead": "3c9e54e8ea0d32556f999c807cea3b239d28dc2b"
 }
