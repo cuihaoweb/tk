@@ -1,6 +1,13 @@
 {
-  "name": "root",
+  "name": "tk",
   "private": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "version": "lerna version",
+    "publish": "pnpm publish --registry https://registry.npmjs.org/ -r"
+  },
   "devDependencies": {
     "@types/node": "^22.9.1",
     "esbuild": "^0.24.0",

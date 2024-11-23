@@ -27,7 +27,7 @@ importers:
   packages/build:
     devDependencies:
       tk-configs:
-        specifier: workspace:^
+        specifier: ^0.0.2
         version: link:../configs
 
   packages/configs: {}
@@ -35,16 +35,16 @@ importers:
   packages/testa:
     devDependencies:
       tk-build:
-        specifier: workspace:^
+        specifier: ^0.0.2
         version: link:../build
       tk-configs:
-        specifier: workspace:^
+        specifier: ^0.0.2
         version: link:../configs
 
   packages/toolkit:
     devDependencies:
       tk-configs:
-        specifier: workspace:^
+        specifier: ^0.0.2
         version: link:../configs
 
 packages:

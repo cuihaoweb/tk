@@ -1,6 +1,7 @@
 {
   "name": "tk-toolkit",
-  "version": "1.0.0",
+  "version": "0.0.11",
+  "private": false,
   "description": "",
   "main": "index.js",
   "files": [
@@ -13,6 +14,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tk-configs": "workspace:^"
+    "tk-configs": "^0.0.11"
   }
 }
