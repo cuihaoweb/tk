@@ -2,7 +2,7 @@
   "name": "tk",
   "private": false,
   "publishConfig": {
-    "registry": "https://registry.npmmirror.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
     "@types/node": "^22.9.1",
